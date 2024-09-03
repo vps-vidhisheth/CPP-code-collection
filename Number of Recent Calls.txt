@@ -1,0 +1,26 @@
+//Number of Recent Calls
+#include <queue>
+
+class RecentCounter {
+public:
+    // Constructor to initialize the RecentCounter object
+    RecentCounter() {}
+
+    // Method to add a new request and return the number of requests in the last 3000 milliseconds
+    int ping(int t) {
+        // Add the new request time to the queue
+        requests.push(t);
+
+        // Remove requests that are older than (t - 3000)
+        while (!requests.empty() && requests.front() < t - 3000) {
+            requests.pop(); // Remove the oldest request from the queue
+        }
+
+        // The number of recent requests is the size of the queue
+        return requests.size();
+    }
+
+private:
+    // Queue to store the timestamps of the requests
+    std::queue<int> requests;
+};
